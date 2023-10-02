@@ -17,9 +17,11 @@ public class SecurityConfiguration {
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
             .authorizeHttpRequests(authz -> authz
-                .anyRequest().authenticated()
+                .anyRequest().permitAll()
+            
             )
             .formLogin(withDefaults());
+        http.csrf(csrf -> csrf.disable());
         return http.build();
     }
 
