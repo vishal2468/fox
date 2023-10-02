@@ -14,5 +14,5 @@ public class RefreshTokenResponseBody {
     @JsonProperty("scope")
     public String scope;
     @JsonProperty("refresh_token")
-    public String refresToken;
+    public String refreshToken;
 }
