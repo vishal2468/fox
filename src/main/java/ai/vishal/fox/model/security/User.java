@@ -15,6 +15,6 @@ public class User {
     private boolean active;
     private String roles;
     private String email;
-    private String accessToken;
+    private String refreshToken;
 
 }

@@ -9,6 +9,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import ch.qos.logback.classic.spi.STEUtil;
+
 public class MyUserDetails implements UserDetails {
 
     private String userName;
@@ -28,6 +30,14 @@ public class MyUserDetails implements UserDetails {
 
     public User getUser() {
         return user;
+    }
+
+    public String getRefreshToken(){
+        return user.getRefreshToken();
+    }
+
+    public void setRefreshToken(String token){
+        user.setRefreshToken(token);
     }
 
     public void setUser(User user) {

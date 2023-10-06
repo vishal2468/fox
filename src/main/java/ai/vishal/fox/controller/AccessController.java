@@ -4,15 +4,18 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.view.RedirectView;
 
-import ai.vishal.fox.model.request.AccessTokenRequestBody;
+import ai.vishal.fox.configuration.LoggedInUser;
 import ai.vishal.fox.model.request.RefreshTokenRequestBody;
-import ai.vishal.fox.model.response.AccessTokenResponseBody;
 import ai.vishal.fox.model.response.RefreshTokenResponseBody;
+import ai.vishal.fox.model.security.MyUserDetails;
+import ai.vishal.fox.model.security.User;
+import ai.vishal.fox.service.UserService;
 
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -21,6 +24,9 @@ public class AccessController {
 
     @Autowired
     RestTemplate restTemplate;
+
+    @Autowired
+    UserService userService;
 
     @GetMapping("/")
     public String home() {
@@ -51,7 +57,7 @@ public class AccessController {
      * refresh token is received only when the user register for the first time
      */
     @GetMapping("/code")
-    public RefreshTokenResponseBody callback(@RequestParam String code) {
+    public String callback(@RequestParam String code,@LoggedInUser MyUserDetails userDetails) {
         String url = "https://oauth2.googleapis.com/token";
         RefreshTokenRequestBody refreshTokenRequestBody = new RefreshTokenRequestBody(code,
                     "511506999617-u661nv4d9ih94ii7cd27nn23vfgpc46q.apps.googleusercontent.com",
@@ -61,25 +67,10 @@ public class AccessController {
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<RefreshTokenRequestBody> requestEntity = new HttpEntity<>(refreshTokenRequestBody, httpHeaders);
-        return restTemplate.exchange(url, HttpMethod.POST, requestEntity, RefreshTokenResponseBody.class).getBody();
-    }
-
-    /*
-     * We use this api to get access token from refresh token
-     */
-
-    @GetMapping("/accesstoken")
-    public AccessTokenResponseBody getAccessToken(@RequestParam String refreshToken) {
-        String url = "https://oauth2.googleapis.com/token";
-        AccessTokenRequestBody accessTokenRequestBody = new AccessTokenRequestBody(
-                    "511506999617-u661nv4d9ih94ii7cd27nn23vfgpc46q.apps.googleusercontent.com",
-                    "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", 
-                    refreshToken,
-                    "refresh_token");
-        HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.setContentType(MediaType.APPLICATION_JSON);
-        HttpEntity<AccessTokenRequestBody> requestEntity = new HttpEntity<>(accessTokenRequestBody, httpHeaders);
-        return restTemplate.exchange(url, HttpMethod.POST, requestEntity, AccessTokenResponseBody.class).getBody();
+        RefreshTokenResponseBody refreshTokenResponseBody=  restTemplate.exchange(url, HttpMethod.POST, requestEntity, RefreshTokenResponseBody.class).getBody();
+        String token=refreshTokenResponseBody.refreshToken;
+        userService.saveUserRefreshToken(userDetails,token);
+        return "success";
     }
 
 }
