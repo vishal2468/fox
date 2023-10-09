@@ -13,7 +13,7 @@ import org.springframework.web.client.RestTemplate;
 import ai.vishal.fox.configuration.LoggedInUser;
 import ai.vishal.fox.model.dto.AggregateBy;
 import ai.vishal.fox.model.dto.BucketByTime;
-import ai.vishal.fox.model.request.BloodPressure;
+import ai.vishal.fox.model.request.StatsRequestBody;
 import ai.vishal.fox.model.security.MyUserDetails;
 import ai.vishal.fox.service.AccessService;
 
@@ -26,17 +26,56 @@ public class GoogleFitController {
     @Autowired
     AccessService accessService;
 
-    @GetMapping("/bloodpressure")
-    public String getAccessToken(@LoggedInUser MyUserDetails userDetails) {
+    @GetMapping("/StatsRequestBody")
+    public String getStatsRequestBody(@LoggedInUser MyUserDetails userDetails) {
         String url="https://www.googleapis.com/fitness/v1/users/me/dataset:aggregate";
-        BloodPressure bloodPressure=new BloodPressure();
-        bloodPressure.setAggregateBy(Arrays.asList(new AggregateBy().setDataTypeName("com.google.blood_pressure")))
+        StatsRequestBody statsRequestBody=new StatsRequestBody();
+        statsRequestBody.setAggregateBy(Arrays.asList(new AggregateBy().setDataTypeName("com.google.blood_pressure")))
                         .setBucketByTime(new BucketByTime().setDurationMillis(86400000))
                         .setStartTimeMillis(1663180200000l)
                         .setEndTimeMillis(1665772200000l);
         HttpHeaders httpHeaders=new HttpHeaders();
         httpHeaders.setBearerAuth(accessService.getAccessToken(userDetails.getRefreshToken()));
-        HttpEntity<BloodPressure> requestEntity = new HttpEntity<>(bloodPressure, httpHeaders);
+        HttpEntity<StatsRequestBody> requestEntity = new HttpEntity<>(statsRequestBody, httpHeaders);
+        return restTemplate.exchange(url, HttpMethod.POST, requestEntity, String.class).getBody();
+    }
+    @GetMapping("/heartrate")
+    public String getHeartRate(@LoggedInUser MyUserDetails userDetails) {
+        String url="https://www.googleapis.com/fitness/v1/users/me/dataset:aggregate";
+        StatsRequestBody statsRequestBody=new StatsRequestBody();
+        statsRequestBody.setAggregateBy(Arrays.asList(new AggregateBy().setDataTypeName("com.google.heart_rate.bpm")))
+                        .setBucketByTime(new BucketByTime().setDurationMillis(86400000))
+                        .setStartTimeMillis(1663180200000l)
+                        .setEndTimeMillis(1665772200000l);
+        HttpHeaders httpHeaders=new HttpHeaders();
+        httpHeaders.setBearerAuth(accessService.getAccessToken(userDetails.getRefreshToken()));
+        HttpEntity<StatsRequestBody> requestEntity = new HttpEntity<>(statsRequestBody, httpHeaders);
+        return restTemplate.exchange(url, HttpMethod.POST, requestEntity, String.class).getBody();
+    }
+    @GetMapping("/oxygensat")
+    public String getOxygenSaturation(@LoggedInUser MyUserDetails userDetails) {
+        String url="https://www.googleapis.com/fitness/v1/users/me/dataset:aggregate";
+        StatsRequestBody statsRequestBody=new StatsRequestBody();
+        statsRequestBody.setAggregateBy(Arrays.asList(new AggregateBy().setDataTypeName("com.google.oxygen_saturation")))
+                        .setBucketByTime(new BucketByTime().setDurationMillis(86400000))
+                        .setStartTimeMillis(1663180200000l)
+                        .setEndTimeMillis(1665772200000l);
+        HttpHeaders httpHeaders=new HttpHeaders();
+        httpHeaders.setBearerAuth(accessService.getAccessToken(userDetails.getRefreshToken()));
+        HttpEntity<StatsRequestBody> requestEntity = new HttpEntity<>(statsRequestBody, httpHeaders);
+        return restTemplate.exchange(url, HttpMethod.POST, requestEntity, String.class).getBody();
+    }
+    @GetMapping("/bodytemp")
+    public String getBodyTemperature(@LoggedInUser MyUserDetails userDetails) {
+        String url="https://www.googleapis.com/fitness/v1/users/me/dataset:aggregate";
+        StatsRequestBody statsRequestBody=new StatsRequestBody();
+        statsRequestBody.setAggregateBy(Arrays.asList(new AggregateBy().setDataTypeName("com.google.body.temperature")))
+                        .setBucketByTime(new BucketByTime().setDurationMillis(86400000))
+                        .setStartTimeMillis(1663180200000l)
+                        .setEndTimeMillis(1665772200000l);
+        HttpHeaders httpHeaders=new HttpHeaders();
+        httpHeaders.setBearerAuth(accessService.getAccessToken(userDetails.getRefreshToken()));
+        HttpEntity<StatsRequestBody> requestEntity = new HttpEntity<>(statsRequestBody, httpHeaders);
         return restTemplate.exchange(url, HttpMethod.POST, requestEntity, String.class).getBody();
     }
 }

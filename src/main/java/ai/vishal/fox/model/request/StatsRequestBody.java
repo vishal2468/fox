@@ -11,7 +11,7 @@ import lombok.experimental.Accessors;
 @Getter
 @Setter
 @Accessors(chain = true)
-public class BloodPressure {
+public class StatsRequestBody {
     List<AggregateBy> aggregateBy;
     BucketByTime bucketByTime;
     long startTimeMillis;
