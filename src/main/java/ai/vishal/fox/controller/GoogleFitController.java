@@ -31,9 +31,9 @@ public class GoogleFitController {
         String url="https://www.googleapis.com/fitness/v1/users/me/dataset:aggregate";
         StatsRequestBody statsRequestBody=new StatsRequestBody();
         statsRequestBody.setAggregateBy(Arrays.asList(new AggregateBy().setDataTypeName("com.google.blood_pressure")))
-                        .setBucketByTime(new BucketByTime().setDurationMillis(86400000))
-                        .setStartTimeMillis(1663180200000l)
-                        .setEndTimeMillis(1665772200000l);
+                        .setBucketByTime(new BucketByTime().setDurationMillis(3600000))
+                        .setStartTimeMillis(System.currentTimeMillis()-86400000l)
+                        .setEndTimeMillis(System.currentTimeMillis());
         HttpHeaders httpHeaders=new HttpHeaders();
         httpHeaders.setBearerAuth(accessService.getAccessToken(userDetails.getRefreshToken()));
         HttpEntity<StatsRequestBody> requestEntity = new HttpEntity<>(statsRequestBody, httpHeaders);
@@ -44,9 +44,9 @@ public class GoogleFitController {
         String url="https://www.googleapis.com/fitness/v1/users/me/dataset:aggregate";
         StatsRequestBody statsRequestBody=new StatsRequestBody();
         statsRequestBody.setAggregateBy(Arrays.asList(new AggregateBy().setDataTypeName("com.google.heart_rate.bpm")))
-                        .setBucketByTime(new BucketByTime().setDurationMillis(86400000))
-                        .setStartTimeMillis(1663180200000l)
-                        .setEndTimeMillis(1665772200000l);
+                        .setBucketByTime(new BucketByTime().setDurationMillis(3600000))
+                        .setStartTimeMillis(System.currentTimeMillis()-86400000l)
+                        .setEndTimeMillis(System.currentTimeMillis());
         HttpHeaders httpHeaders=new HttpHeaders();
         httpHeaders.setBearerAuth(accessService.getAccessToken(userDetails.getRefreshToken()));
         HttpEntity<StatsRequestBody> requestEntity = new HttpEntity<>(statsRequestBody, httpHeaders);
@@ -57,9 +57,9 @@ public class GoogleFitController {
         String url="https://www.googleapis.com/fitness/v1/users/me/dataset:aggregate";
         StatsRequestBody statsRequestBody=new StatsRequestBody();
         statsRequestBody.setAggregateBy(Arrays.asList(new AggregateBy().setDataTypeName("com.google.oxygen_saturation")))
-                        .setBucketByTime(new BucketByTime().setDurationMillis(86400000))
-                        .setStartTimeMillis(1663180200000l)
-                        .setEndTimeMillis(1665772200000l);
+                        .setBucketByTime(new BucketByTime().setDurationMillis(3600000))
+                        .setStartTimeMillis(System.currentTimeMillis()-86400000l)
+                        .setEndTimeMillis(System.currentTimeMillis());
         HttpHeaders httpHeaders=new HttpHeaders();
         httpHeaders.setBearerAuth(accessService.getAccessToken(userDetails.getRefreshToken()));
         HttpEntity<StatsRequestBody> requestEntity = new HttpEntity<>(statsRequestBody, httpHeaders);
@@ -70,9 +70,9 @@ public class GoogleFitController {
         String url="https://www.googleapis.com/fitness/v1/users/me/dataset:aggregate";
         StatsRequestBody statsRequestBody=new StatsRequestBody();
         statsRequestBody.setAggregateBy(Arrays.asList(new AggregateBy().setDataTypeName("com.google.body.temperature")))
-                        .setBucketByTime(new BucketByTime().setDurationMillis(86400000))
-                        .setStartTimeMillis(1663180200000l)
-                        .setEndTimeMillis(1665772200000l);
+                        .setBucketByTime(new BucketByTime().setDurationMillis(3600000))
+                        .setStartTimeMillis(System.currentTimeMillis()-86400000l)
+                        .setEndTimeMillis(System.currentTimeMillis());
         HttpHeaders httpHeaders=new HttpHeaders();
         httpHeaders.setBearerAuth(accessService.getAccessToken(userDetails.getRefreshToken()));
         HttpEntity<StatsRequestBody> requestEntity = new HttpEntity<>(statsRequestBody, httpHeaders);
