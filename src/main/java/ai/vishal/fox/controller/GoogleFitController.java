@@ -26,8 +26,8 @@ public class GoogleFitController {
     @Autowired
     AccessService accessService;
 
-    @GetMapping("/StatsRequestBody")
-    public String getStatsRequestBody(@LoggedInUser MyUserDetails userDetails) {
+    @GetMapping("/bp")
+    public String getBloodpressure(@LoggedInUser MyUserDetails userDetails) {
         String url="https://www.googleapis.com/fitness/v1/users/me/dataset:aggregate";
         StatsRequestBody statsRequestBody=new StatsRequestBody();
         statsRequestBody.setAggregateBy(Arrays.asList(new AggregateBy().setDataTypeName("com.google.blood_pressure")))
