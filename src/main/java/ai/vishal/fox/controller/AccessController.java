@@ -4,7 +4,6 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
@@ -14,7 +13,6 @@ import ai.vishal.fox.configuration.LoggedInUser;
 import ai.vishal.fox.model.request.RefreshTokenRequestBody;
 import ai.vishal.fox.model.response.RefreshTokenResponseBody;
 import ai.vishal.fox.model.security.MyUserDetails;
-import ai.vishal.fox.model.security.User;
 import ai.vishal.fox.service.UserService;
 
 import org.springframework.web.bind.annotation.RequestParam;
@@ -40,7 +38,7 @@ public class AccessController {
     @GetMapping("/google/auth")
     public RedirectView getMethodName() {
         String redirectUrl = "https://accounts.google.com/o/oauth2/v2/auth?" +
-                "scope=https%3A//www.googleapis.com/auth/fitness.blood_pressure.read&" +
+                "scope=https%3A//www.googleapis.com/auth/fitness.blood_pressure.read https%3A//www.googleapis.com/auth/fitness.heart_rate.read https%3A//www.googleapis.com/auth/fitness.body_temperature.read https%3A//www.googleapis.com/auth/fitness.oxygen_saturation.read&" +
                 "access_type=offline&" +
                 "include_granted_scopes=true&" +
                 "response_type=code&" +

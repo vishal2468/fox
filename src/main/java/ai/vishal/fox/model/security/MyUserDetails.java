@@ -9,8 +9,6 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import ch.qos.logback.classic.spi.STEUtil;
-
 public class MyUserDetails implements UserDetails {
 
     private String userName;
