@@ -27,8 +27,8 @@ public class AccessController {
     UserService userService;
 
     @GetMapping("/")
-    public String home() {
-        return "Hello, Home!";
+    public Object home() {
+        return null;
     }
 
     /*
