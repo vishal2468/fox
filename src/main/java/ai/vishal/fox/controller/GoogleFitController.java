@@ -16,12 +16,16 @@ import ai.vishal.fox.model.dto.BucketByTime;
 import ai.vishal.fox.model.request.StatsRequestBody;
 import ai.vishal.fox.model.security.MyUserDetails;
 import ai.vishal.fox.service.AccessService;
+import ai.vishal.fox.service.KmsService;
 
 @RestController
 public class GoogleFitController {
 
     @Autowired
     RestTemplate restTemplate;
+
+    @Autowired 
+    KmsService kmsService;
 
     @Autowired
     AccessService accessService;
@@ -74,7 +78,9 @@ public class GoogleFitController {
                         .setStartTimeMillis(System.currentTimeMillis()-86400000l)
                         .setEndTimeMillis(System.currentTimeMillis());
         HttpHeaders httpHeaders=new HttpHeaders();
-        httpHeaders.setBearerAuth(accessService.getAccessToken(userDetails.getRefreshToken()));
+        String encryptedAccessToken=userDetails.getRefreshToken();
+        String decryptedToken=kmsService.decrypt(encryptedAccessToken);
+        httpHeaders.setBearerAuth(accessService.getAccessToken(decryptedToken));
         HttpEntity<StatsRequestBody> requestEntity = new HttpEntity<>(statsRequestBody, httpHeaders);
         return restTemplate.exchange(url, HttpMethod.POST, requestEntity, String.class).getBody();
     }
