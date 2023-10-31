@@ -30,7 +30,7 @@ public class GoogleFitController {
     @Autowired
     AccessService accessService;
 
-    @GetMapping("/bp")
+    @GetMapping("/bloodpressure")
     public String getBloodpressure(@LoggedInUser MyUserDetails userDetails) {
         String url="https://www.googleapis.com/fitness/v1/users/me/dataset:aggregate";
         StatsRequestBody statsRequestBody=new StatsRequestBody();
@@ -56,7 +56,7 @@ public class GoogleFitController {
         HttpEntity<StatsRequestBody> requestEntity = new HttpEntity<>(statsRequestBody, httpHeaders);
         return restTemplate.exchange(url, HttpMethod.POST, requestEntity, String.class).getBody();
     }
-    @GetMapping("/oxygensat")
+    @GetMapping("/oxygensaturation")
     public String getOxygenSaturation(@LoggedInUser MyUserDetails userDetails) {
         String url="https://www.googleapis.com/fitness/v1/users/me/dataset:aggregate";
         StatsRequestBody statsRequestBody=new StatsRequestBody();
@@ -69,7 +69,7 @@ public class GoogleFitController {
         HttpEntity<StatsRequestBody> requestEntity = new HttpEntity<>(statsRequestBody, httpHeaders);
         return restTemplate.exchange(url, HttpMethod.POST, requestEntity, String.class).getBody();
     }
-    @GetMapping("/bodytemp")
+    @GetMapping("/bodytemperature")
     public String getBodyTemperature(@LoggedInUser MyUserDetails userDetails) {
         String url="https://www.googleapis.com/fitness/v1/users/me/dataset:aggregate";
         StatsRequestBody statsRequestBody=new StatsRequestBody();
