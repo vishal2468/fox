@@ -1,6 +1,7 @@
 package ai.vishal.fox.service;
 
 import java.util.Base64;
+import java.util.Base64.Decoder;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -27,9 +28,9 @@ public class KmsService {
 
     @Value("$mek")
     private String mek;
-    
+
     public String encrypt(String refreshToken) {
-        refreshToken=Base64.getEncoder().encodeToString(refreshToken.getBytes());
+        // refreshToken=Base64.getEncoder().encodeToString(refreshToken.getBytes());
         String url="https://KSM-endpoint";
         HttpHeaders httpHeaders=new HttpHeaders();
         httpHeaders.add("x-api-key", devEnc);
