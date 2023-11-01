@@ -18,7 +18,6 @@ public class UserService {
     KmsService kmsService;
 
     public void saveUserRefreshToken(MyUserDetails userDetails,String refreshToken){
-        ;
         userDetails.setRefreshToken(kmsService.encrypt(refreshToken));
         userRepository.save(userDetails.getUser());
     }
