@@ -10,10 +10,27 @@ Please be connected to OT VPN when using this service.
 
 # Steps to use the application:
 
+
+## signup 
+### signup not applicatble as the user credentials has been provided.
+- `http://localhost:8080/user/signup`
+- for signing up can use the frontend application
+- `https://github.com/vishal2468/fox-ui.git`
+- the above frontend is not ready so , can only signup at the moment. Please dont try to login through frontend.
+
+
 ## login
 `http://localhost:8080/login`
 - Username: vishal139
 - password: password
+
+## OAuth
+`http://localhost:8080/google/auth`
+- You will be redirected to hoogle signin page
+- You will be able to see the description of requested data.
+- you can approve or deny the request.
+
+
 ## acess data
 The provides access to 4 health parameters
   - GET `http://localhost:8080/bodytemperature`
