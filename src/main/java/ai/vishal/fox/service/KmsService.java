@@ -30,8 +30,8 @@ public class KmsService {
     private String mek;
 
     public String encrypt(String refreshToken) {
-        // refreshToken=Base64.getEncoder().encodeToString(refreshToken.getBytes());
-        String url="https://KSM-endpoint";
+        refreshToken=Base64.getEncoder().encodeToString(refreshToken.getBytes());
+        String url="https://qa.otkm.bp.anthos.otxlab.net/api/meks/7f63a133-2898-4c18-b28e-5cdfa7c3a75b/encrypt";
         HttpHeaders httpHeaders=new HttpHeaders();
         httpHeaders.add("x-api-key", devEnc);
         CipherRequest cipherRequest=new CipherRequest(refreshToken);
@@ -41,13 +41,13 @@ public class KmsService {
     }
 
     public String decrypt(String encryptedRefreshToken) {
-        String url="https://KSM-endpoint";
+        String url="https://qa.otkm.bp.anthos.otxlab.net/api/meks/7f63a133-2898-4c18-b28e-5cdfa7c3a75b/decrypt";
         HttpHeaders httpHeaders=new HttpHeaders();
         httpHeaders.add("x-api-key", devDec);
         CipherRequest cipherRequest=new CipherRequest(encryptedRefreshToken);
         
         HttpEntity<CipherRequest> requestEntity = new HttpEntity<>(cipherRequest, httpHeaders);
-        return restTemplate.exchange(url, HttpMethod.POST, requestEntity, CipherResponse.class).getBody().getData();
+        return Base64.getDecoder().decode(restTemplate.exchange(url, HttpMethod.POST, requestEntity, CipherResponse.class).getBody().getData()).toString();
     }
     
 }
