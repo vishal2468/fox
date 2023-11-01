@@ -47,7 +47,7 @@ public class KmsService {
         CipherRequest cipherRequest=new CipherRequest(encryptedRefreshToken);
         
         HttpEntity<CipherRequest> requestEntity = new HttpEntity<>(cipherRequest, httpHeaders);
-        return Base64.getDecoder().decode(restTemplate.exchange(url, HttpMethod.POST, requestEntity, CipherResponse.class).getBody().getData()).toString();
+        return new String(Base64.getDecoder().decode(restTemplate.exchange(url, HttpMethod.POST, requestEntity, CipherResponse.class).getBody().getData()));
     }
     
 }
