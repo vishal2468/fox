@@ -1,7 +1,6 @@
 package ai.vishal.fox.service;
 
 import java.util.Base64;
-import java.util.Base64.Decoder;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
