@@ -28,10 +28,20 @@ public class UserController {
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }
+
     @GetMapping("/user/{username}")
-    public Optional<User> findByUserName(@PathVariable("username") String username){
-        Optional<User> user= userRepository.findByUserName(username);
-        return user;
+    public Optional<User> findByUserName(@PathVariable("username") String username) {
+        return userRepository.findByUserName(username);
+    }
+
+    @GetMapping("/user/doctors")
+    public List<User> findAllDoctors() {
+        return userRepository.findByRoles("ROLE_DOCTOR");
+    }
+
+    @GetMapping("/user/patients")
+    public List<User> findAllPatinets() {
+        return userRepository.findByRoles("ROLE_PATIENT");
     }
 
 }
