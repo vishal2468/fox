@@ -18,10 +18,10 @@ public class SecurityConfiguration {
         http
             .authorizeHttpRequests(authz -> authz
                 .anyRequest().permitAll()
-            
             )
-            .formLogin(withDefaults());
-        http.csrf(csrf -> csrf.disable());
+            .formLogin(withDefaults())
+            .httpBasic(withDefaults())
+            .csrf(csrf -> csrf.disable());
         return http.build();
     }
 
