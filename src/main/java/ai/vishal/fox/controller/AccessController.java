@@ -37,14 +37,16 @@ public class AccessController {
      */
     @GetMapping("/google/auth")
     public RedirectView getMethodName() {
-        String redirectUrl = "https://accounts.google.com/o/oauth2/v2/auth?" +
-                "scope=https%3A//www.googleapis.com/auth/fitness.blood_pressure.read https%3A//www.googleapis.com/auth/fitness.heart_rate.read https%3A//www.googleapis.com/auth/fitness.body_temperature.read https%3A//www.googleapis.com/auth/fitness.oxygen_saturation.read&" +
-                "access_type=offline&" +
-                "include_granted_scopes=true&" +
-                "response_type=code&" +
-                "state=there&" +
-                "redirect_uri=http%3A//localhost%3A8080/code&" +
-                "client_id=511506999617-u661nv4d9ih94ii7cd27nn23vfgpc46q.apps.googleusercontent.com";
+        String redirectUrl = """
+                https://accounts.google.com/o/oauth2/v2/auth?\
+                scope=https%3A//www.googleapis.com/auth/fitness.blood_pressure.read https%3A//www.googleapis.com/auth/fitness.heart_rate.read https%3A//www.googleapis.com/auth/fitness.body_temperature.read https%3A//www.googleapis.com/auth/fitness.oxygen_saturation.read&\
+                access_type=offline&\
+                include_granted_scopes=true&\
+                response_type=code&\
+                state=there&\
+                redirect_uri=http%3A//localhost%3A8080/code&\
+                client_id=511506999617-u661nv4d9ih94ii7cd27nn23vfgpc46q.apps.googleusercontent.com\
+                """;
         RedirectView redirectView = new RedirectView();
         redirectView.setUrl(redirectUrl);
         return redirectView;
