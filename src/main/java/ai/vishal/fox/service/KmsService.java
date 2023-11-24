@@ -30,7 +30,7 @@ public class KmsService {
 
     public String encrypt(String refreshToken) {
         refreshToken=Base64.getEncoder().encodeToString(refreshToken.getBytes());
-        String url="https://qa.otkm.bp.anthos.otxlab.net/api/meks/7f63a133-2898-4c18-b28e-5cdfa7c3a75b/encrypt";
+        String url="https://qa.otkm.bp.anthos.otxlab.net/api/meks/"+mek+"/encrypt";
         HttpHeaders httpHeaders=new HttpHeaders();
         httpHeaders.add("x-api-key", devEnc);
         CipherRequest cipherRequest=new CipherRequest(refreshToken);
@@ -40,7 +40,7 @@ public class KmsService {
     }
 
     public String decrypt(String encryptedRefreshToken) {
-        String url="https://qa.otkm.bp.anthos.otxlab.net/api/meks/7f63a133-2898-4c18-b28e-5cdfa7c3a75b/decrypt";
+        String url="https://qa.otkm.bp.anthos.otxlab.net/api/meks/"+mek+"/decrypt";
         HttpHeaders httpHeaders=new HttpHeaders();
         httpHeaders.add("x-api-key", devDec);
         CipherRequest cipherRequest=new CipherRequest(encryptedRefreshToken);
