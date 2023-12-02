@@ -25,10 +25,13 @@ public class KmsService {
     @Value("${user.devdec}")
     private String devDec;
 
-    @Value("$mek")
+    @Value("${mek}")
     private String mek;
 
+    private boolean useKms = false;
+
     public String encrypt(String refreshToken) {
+        if(!useKms) return refreshToken;
         refreshToken=Base64.getEncoder().encodeToString(refreshToken.getBytes());
         String url="https://qa.otkm.bp.anthos.otxlab.net/api/meks/"+mek+"/encrypt";
         HttpHeaders httpHeaders=new HttpHeaders();
@@ -40,6 +43,7 @@ public class KmsService {
     }
 
     public String decrypt(String encryptedRefreshToken) {
+        if(!useKms) return encryptedRefreshToken;
         String url="https://qa.otkm.bp.anthos.otxlab.net/api/meks/"+mek+"/decrypt";
         HttpHeaders httpHeaders=new HttpHeaders();
         httpHeaders.add("x-api-key", devDec);
