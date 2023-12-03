@@ -174,6 +174,7 @@ public class GoogleFitController {
     }
 
     private boolean canAccessPatientData(MyUserDetails doctor, String username) {
+        if(doctor.getUser().getAccessiblePatients()==null) return false;
         return doctor.getUser().getAccessiblePatients().contains(username);
     }
 }
