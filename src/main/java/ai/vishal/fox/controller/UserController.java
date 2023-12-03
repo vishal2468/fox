@@ -25,8 +25,9 @@ public class UserController {
     UserRepository userRepository;
 
     @PostMapping("/user/signup")
-    public void userSignup(@RequestBody User user) {
+    public String userSignup(@RequestBody User user) {
         userRepository.save(user);
+        return "signup successful";
     }
 
     @GetMapping("/user")

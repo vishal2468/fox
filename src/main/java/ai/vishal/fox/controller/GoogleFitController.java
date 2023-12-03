@@ -16,7 +16,6 @@ import ai.vishal.fox.model.dto.AggregateBy;
 import ai.vishal.fox.model.dto.BucketByTime;
 import ai.vishal.fox.model.request.StatsRequestBody;
 import ai.vishal.fox.model.security.MyUserDetails;
-import ai.vishal.fox.model.security.User;
 import ai.vishal.fox.repository.UserRepository;
 import ai.vishal.fox.service.AccessService;
 import ai.vishal.fox.service.KmsService;
@@ -112,6 +111,7 @@ public class GoogleFitController {
                 .setEndTimeMillis(System.currentTimeMillis());
         HttpHeaders httpHeaders = new HttpHeaders();
         String encryptedAccessToken = userRepository.findByUserName(username).get().getRefreshToken();
+        if(encryptedAccessToken==null||encryptedAccessToken.isEmpty()) return "user has not provided access to Google Oauth token";
         String decryptedToken = kmsService.decrypt(encryptedAccessToken);
         httpHeaders.setBearerAuth(accessService.getAccessToken(decryptedToken));
         HttpEntity<StatsRequestBody> requestEntity = new HttpEntity<>(statsRequestBody, httpHeaders);
@@ -129,6 +129,7 @@ public class GoogleFitController {
                 .setEndTimeMillis(System.currentTimeMillis());
         HttpHeaders httpHeaders = new HttpHeaders();
         String encryptedAccessToken = userRepository.findByUserName(username).get().getRefreshToken();
+        if(encryptedAccessToken==null||encryptedAccessToken.isEmpty()) return "user has not provided access to Google Oauth token";
         String decryptedToken = kmsService.decrypt(encryptedAccessToken);
         httpHeaders.setBearerAuth(accessService.getAccessToken(decryptedToken));
         HttpEntity<StatsRequestBody> requestEntity = new HttpEntity<>(statsRequestBody, httpHeaders);
@@ -147,6 +148,7 @@ public class GoogleFitController {
                 .setEndTimeMillis(System.currentTimeMillis());
         HttpHeaders httpHeaders = new HttpHeaders();
         String encryptedAccessToken = userRepository.findByUserName(username).get().getRefreshToken();
+        if(encryptedAccessToken==null||encryptedAccessToken.isEmpty()) return "user has not provided access to Google Oauth token";
         String decryptedToken = kmsService.decrypt(encryptedAccessToken);
         httpHeaders.setBearerAuth(accessService.getAccessToken(decryptedToken));
         HttpEntity<StatsRequestBody> requestEntity = new HttpEntity<>(statsRequestBody, httpHeaders);
@@ -164,6 +166,7 @@ public class GoogleFitController {
                 .setEndTimeMillis(System.currentTimeMillis());
         HttpHeaders httpHeaders = new HttpHeaders();
         String encryptedAccessToken = userRepository.findByUserName(username).get().getRefreshToken();
+        if(encryptedAccessToken==null||encryptedAccessToken.isEmpty()) return "user has not provided access to Google Oauth token";
         String decryptedToken = kmsService.decrypt(encryptedAccessToken);
         httpHeaders.setBearerAuth(accessService.getAccessToken(decryptedToken));
         HttpEntity<StatsRequestBody> requestEntity = new HttpEntity<>(statsRequestBody, httpHeaders);
