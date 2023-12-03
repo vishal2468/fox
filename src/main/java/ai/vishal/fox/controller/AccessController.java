@@ -1,4 +1,6 @@
 package ai.vishal.fox.controller;
+import javax.management.RuntimeErrorException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -57,7 +59,7 @@ public class AccessController {
      * refresh token is received only when the user register for the first time
      */
     @GetMapping("/code")
-    public String callback(@RequestParam String code,@LoggedInUser MyUserDetails userDetails) {
+    public String callback(@RequestParam String code,@LoggedInUser MyUserDetails userDetails) throws Exception {
         String url = "https://oauth2.googleapis.com/token";
         RefreshTokenRequestBody refreshTokenRequestBody = new RefreshTokenRequestBody(code,
                     "511506999617-u661nv4d9ih94ii7cd27nn23vfgpc46q.apps.googleusercontent.com",
@@ -69,6 +71,9 @@ public class AccessController {
         HttpEntity<RefreshTokenRequestBody> requestEntity = new HttpEntity<>(refreshTokenRequestBody, httpHeaders);
         RefreshTokenResponseBody refreshTokenResponseBody=  restTemplate.exchange(url, HttpMethod.POST, requestEntity, RefreshTokenResponseBody.class).getBody();
         String token=refreshTokenResponseBody.refreshToken;
+        if(token==null || token.isEmpty()){
+            throw new Exception("Google Oauth did not return a token");
+        }
         userService.saveUserRefreshToken(userDetails,token);
         return "success";
     }

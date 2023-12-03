@@ -16,6 +16,7 @@ import ai.vishal.fox.model.dto.AggregateBy;
 import ai.vishal.fox.model.dto.BucketByTime;
 import ai.vishal.fox.model.request.StatsRequestBody;
 import ai.vishal.fox.model.security.MyUserDetails;
+import ai.vishal.fox.model.security.User;
 import ai.vishal.fox.repository.UserRepository;
 import ai.vishal.fox.service.AccessService;
 import ai.vishal.fox.service.KmsService;
@@ -101,7 +102,8 @@ public class GoogleFitController {
     }
 
     @GetMapping("/bloodpressure/{username}")
-    public String getBloodpressure(@PathVariable String username) {
+    public String getBloodpressure(@PathVariable String username , @LoggedInUser MyUserDetails doctor) {
+        if(!canAccessPatientData(doctor,username)) return "Patient not accessible";
         String url = "https://www.googleapis.com/fitness/v1/users/me/dataset:aggregate";
         StatsRequestBody statsRequestBody = new StatsRequestBody();
         statsRequestBody.setAggregateBy(Arrays.asList(new AggregateBy().setDataTypeName("com.google.blood_pressure")))
@@ -117,7 +119,8 @@ public class GoogleFitController {
     }
 
     @GetMapping("/heartrate/{username}")
-    public String getHeartRate(@PathVariable String username) {
+    public String getHeartRate(@PathVariable String username , @LoggedInUser MyUserDetails doctor) {
+        if(!canAccessPatientData(doctor,username)) return "Patient not accessible";
         String url = "https://www.googleapis.com/fitness/v1/users/me/dataset:aggregate";
         StatsRequestBody statsRequestBody = new StatsRequestBody();
         statsRequestBody.setAggregateBy(Arrays.asList(new AggregateBy().setDataTypeName("com.google.heart_rate.bpm")))
@@ -133,7 +136,8 @@ public class GoogleFitController {
     }
 
     @GetMapping("/oxygensaturation/{username}")
-    public String getOxygenSaturation(@PathVariable String username) {
+    public String getOxygenSaturation(@PathVariable String username , @LoggedInUser MyUserDetails doctor) {
+        if(!canAccessPatientData(doctor,username)) return "Patient not accessible";
         String url = "https://www.googleapis.com/fitness/v1/users/me/dataset:aggregate";
         StatsRequestBody statsRequestBody = new StatsRequestBody();
         statsRequestBody
@@ -150,7 +154,8 @@ public class GoogleFitController {
     }
 
     @GetMapping("/bodytemperature/{username}")
-    public String getBodyTemperature(@PathVariable String username) {
+    public String getBodyTemperature(@PathVariable String username , @LoggedInUser MyUserDetails doctor) {
+        if(!canAccessPatientData(doctor,username)) return "Patient not accessible";
         String url = "https://www.googleapis.com/fitness/v1/users/me/dataset:aggregate";
         StatsRequestBody statsRequestBody = new StatsRequestBody();
         statsRequestBody.setAggregateBy(Arrays.asList(new AggregateBy().setDataTypeName("com.google.body.temperature")))
@@ -163,5 +168,9 @@ public class GoogleFitController {
         httpHeaders.setBearerAuth(accessService.getAccessToken(decryptedToken));
         HttpEntity<StatsRequestBody> requestEntity = new HttpEntity<>(statsRequestBody, httpHeaders);
         return restTemplate.exchange(url, HttpMethod.POST, requestEntity, String.class).getBody();
+    }
+
+    private boolean canAccessPatientData(MyUserDetails doctor, String username) {
+        return doctor.getUser().getAccessiblePatients().contains(username);
     }
 }

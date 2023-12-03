@@ -1,4 +1,5 @@
 package ai.vishal.fox.model.security;
+import java.util.Set;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -22,5 +23,6 @@ public class User {
     private String email;
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String refreshToken;
+    private Set<String> accessiblePatients;
 
 }
