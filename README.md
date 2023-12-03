@@ -8,6 +8,15 @@ Please be connected to OT VPN when using this service.
 * There for any other user can signup but wont be able to use the Google fit apis to fetch data.
 * Let me know in advance if you need to test with your own email.
 
+Please watch the following demo video:
+https://youtu.be/QPJKXIw45C0
+
+[![Watch the video](https://youtu.be/vi/QPJKXIw45C0/hqdefault.jpg)](https://youtu.be/embed/QPJKXIw45C0)
+
+[<img src="https://img.youtube.com/vi/QPJKXIw45C0/hqdefault.jpg" width="600" height="300"
+/>](https://youtu.be/embed/QPJKXIw45C0)
+
+
 # Steps to use the application:
 
 
