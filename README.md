@@ -13,6 +13,8 @@ Please watch the following demo video:
 [<img src="https://img.youtube.com/vi/QPJKXIw45C0/hqdefault.jpg" width="720" height="450"
 />](https://youtube.com/embed/QPJKXIw45C0)
 
+[Link to postman collection](https://www.postman.com/vishal2468/workspace/ot-hackathon/collection/22636620-29f2b3b6-d29d-47c0-a159-5bfbefbe2798?action=share&creator=22636620)
+
 
 # Steps to use the application:
 
