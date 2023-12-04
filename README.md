@@ -9,11 +9,8 @@ Please be connected to OT VPN when using this service.
 * Let me know in advance if you need to test with your own email.
 
 Please watch the following demo video:
-https://youtu.be/QPJKXIw45C0
 
-[![Watch the video](https://youtube.com/vi/QPJKXIw45C0/hqdefault.jpg)](https://youtube.com/embed/QPJKXIw45C0)
-
-[<img src="https://img.youtube.com/vi/QPJKXIw45C0/hqdefault.jpg" width="600" height="300"
+[<img src="https://img.youtube.com/vi/QPJKXIw45C0/hqdefault.jpg" width="720" height="450"
 />](https://youtube.com/embed/QPJKXIw45C0)
 
 
